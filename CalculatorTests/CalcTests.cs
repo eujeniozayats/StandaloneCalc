@@ -53,7 +53,8 @@ namespace StandaloneCalculator
             page.TermValue.SendKeys(Keys.Enter);
             page.UpfrontPaymentPercentField.SendKeys(data.UpfrontPaymentPercents);
             page.UpfrontPaymentPercentField.SendKeys(Keys.Enter);
-            wait.Until(d => page.TotalCost.Text.Equals(data.CostOfCredit));
+            //wait.Until(d => page.TotalCost.Text.Equals(data.CostOfCredit));
+            Thread.Sleep(2000);
 
 
             DateTime localDate = DateTime.Now;
