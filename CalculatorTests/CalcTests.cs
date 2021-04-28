@@ -40,7 +40,7 @@ namespace StandaloneCalculator
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             _driver.Manage().Window.Maximize();
 
-            _driver.Url = "https://fincalc.platform.uat.glowfinsvs.com/";
+            _driver.Url = "https://fincalc.platform.dev.glowfinsvs.com/";
             IJavaScriptExecutor executor = (IJavaScriptExecutor)_driver;
             string js = "arguments[0].type = 'text';";
             executor.ExecuteScript(js, page.UpfrontPaymentPercentField);
@@ -48,13 +48,13 @@ namespace StandaloneCalculator
             page.InputField.Clear();
             page.InputField.SendKeys(data.Price);
             page.InputField.SendKeys(Keys.Enter);
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000); ЗДЕСЬ ДОЛЖНО БЫТЬ IMPLICIT WAIT
+            //wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy);
             page.TermValue.SendKeys(data.Term);
             page.TermValue.SendKeys(Keys.Enter);
             page.UpfrontPaymentPercentField.SendKeys(data.UpfrontPaymentPercents);
             page.UpfrontPaymentPercentField.SendKeys(Keys.Enter);
-            //wait.Until(d => page.TotalCost.Text.Equals(data.CostOfCredit));
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000); ЗДЕСЬ ДОЛЖНО БЫТЬ IMPLICIT WAIT
 
 
             DateTime localDate = DateTime.Now;
@@ -110,7 +110,7 @@ namespace StandaloneCalculator
             });
 
 
-            var spreadsheetId = "1n8Ed8_nPIxDkguuFsc4pmkKgUN9D3kK7JcCuuwp-m6s";
+            var spreadsheetId = "13ItApAkiEEFKphUcAJCXKVZ5BXMfF8ooBUy9ajb9Zpo";
             var range = "Sheet1!A2:H";
             var request = service.Spreadsheets.Values.Get(spreadsheetId, range);
 
@@ -143,7 +143,7 @@ namespace StandaloneCalculator
         public void Write(List<object> values, int rowNum)
         {
 
-            var SheetId = "1n8Ed8_nPIxDkguuFsc4pmkKgUN9D3kK7JcCuuwp-m6s";
+            var SheetId = "13ItApAkiEEFKphUcAJCXKVZ5BXMfF8ooBUy9ajb9Zpo";
             var service = AuthorizeGoogleAppForSheetsService();
             var cellRange = $"Sheet1!I{rowNum}:I{rowNum}";
             UpdatGoogleSheetinBatch(values, SheetId, cellRange, service);
